@@ -1,3 +1,5 @@
+import Admonition from "./Admonition";
+
 type Props = {
   sectionId: string;
 };
@@ -127,11 +129,15 @@ export default function SectionContent({ sectionId }: Props) {
           <code className="bg-gray-100 px-2 py-1 rounded">ssh username@magma.cluster.ub</code>
           <p className="my-6">El procedimiento de autenticacion del username se realiza  via <em>FreeIPA</em> y <em>Kerberos</em>.</p>
 
-          <p>La mascara de la IP de magma debe ser aosicada a su IP estatica mediante:</p>
+          <p>La mascara de la IP de magma debe ser aosicada a su IP estatica mediante la edicion del archivo:</p>
           <ul className="space-y-6 list-disc list-inside">
             <li> <code className="bg-gray-100 px-2 py-1 rounded">/etc/hosts</code> on linux/mac</li>
             <li> <code className="bg-gray-100 px-2 py-1 rounded">C:\Windows\System32\drivers\etc\hosts</code> on windows</li>
           </ul>
+
+          <p>Se debera agregar la siguiente linea hasta el final del archivo:</p>
+          <p>161.116.86.106  magma.cluster.ub    magma</p>
+
 
         </div>
       );
@@ -187,10 +193,10 @@ export default function SectionContent({ sectionId }: Props) {
                   <tr className="even:bg-orange-200 text-center">
                     <td className="px-4 py-2"><code>sandbox</code></td>
                     <td className="px-4 py-2">Pruebas de modelos multipropósito</td>
-                    <td className="px-4 py-2"><code>darcy,maxwell</code></td>
+                    <td className="px-4 py-2"><code>darcy</code></td>
                     <td className="px-4 py-2">20 núcleos / 40 hilos</td>
                     <td className="px-4 py-2">~192 GB</td>
-                    <td className="px-4 py-2"><code>05:00:00</code></td>
+                    <td className="px-4 py-2"><code>01:00:00</code></td>
                   </tr>
                   <tr className="even:bg-orange-200 text-center">
                     <td className="px-4 py-2"><code>test-mpi</code></td>
@@ -558,95 +564,100 @@ export default function SectionContent({ sectionId }: Props) {
                 </tr>
               </thead>
               <tbody className="text-gray-900">
-                <tr className="bg-purple-100">
+                <tr className="even:bg-purple-100">
+                  <td className="px-4 py-2 font-semibold">MUNGE</td>
+                  <td className="px-4 py-2">Autenticación encriptada entre nodos de procesos y credenciales UID y GID</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
+                </tr>
+                <tr className="even:bg-purple-100">
                   <td className="px-4 py-2 font-semibold">FreeIPA + Kerberos</td>
                   <td className="px-4 py-2">Autenticación centralizada de usuarios y gestión de políticas</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">SSH con claves</td>
                   <td className="px-4 py-2">Acceso entre nodos sin contraseña (clave pública/privada)</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">NFS + autofs</td>
                   <td className="px-4 py-2">Exportación y montaje automático de almacenamiento compartido</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">Slurm + slurmdbd</td>
                   <td className="px-4 py-2">Planificador de trabajos HPC y contabilidad de uso</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
-                </tr>
-                <tr className="even:bg-purple-200">
-                  <td className="px-4 py-2 font-semibold">Moong</td>
-                  <td className="px-4 py-2">Visualización de estados y jobs de Slurm vía terminal</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">Environment Modules</td>
                   <td className="px-4 py-2">Carga dinámica de entornos de desarrollo por módulo</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
-                </tr>
-                <tr className="even:bg-purple-200">
-                  <td className="px-4 py-2 font-semibold">Intel oneAPI</td>
-                  <td className="px-4 py-2">Compiladores y herramientas para cómputo científico</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
-                </tr>
-                <tr className="even:bg-purple-200">
-                  <td className="px-4 py-2 font-semibold">GCC</td>
-                  <td className="px-4 py-2">Compilador GNU para C, C++, Fortran y otros</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
-                </tr>
-                <tr className="even:bg-purple-200">
-                  <td className="px-4 py-2 font-semibold">Python (Conda)</td>
-                  <td className="px-4 py-2">Entornos virtuales para desarrollo y scripts HPC</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">Prometheus</td>
                   <td className="px-4 py-2">Recolección de métricas del sistema y de Slurm</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">Grafana</td>
                   <td className="px-4 py-2">Dashboards visuales con métricas y alertas</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
                 </tr>
                 <tr className="even:bg-purple-200">
-                  <td className="px-4 py-2 font-semibold">/scratch y /workspace</td>
+                  <td className="px-4 py-2 font-semibold">/workspace x3</td>
                   <td className="px-4 py-2">Espacios temporales para cálculo en cada nodo</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Disponible</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">Firewall</td>
                   <td className="px-4 py-2">Seguridad de red para acceso desde internet/red externa</td>
-                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
+                </tr>
+                <tr className="even:bg-purple-200">
+                  <td className="px-4 py-2 font-semibold">Block-Inode Quotas</td>
+                  <td className="px-4 py-2">Limites de almacenamiento en disco y de creacion de archivos</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">Slurm User Limits</td>
                   <td className="px-4 py-2">Restricciones de uso por usuario o grupo</td>
-                  <td className="px-4 py-2 text-yellow-600 font-semibold">Pendiente</td>
+                  <td className="px-4 py-2 text-red-600 font-semibold">Pendiente ⛔</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">Snapshots NFS</td>
                   <td className="px-4 py-2">Backups del sistema de archivos compartido</td>
-                  <td className="px-4 py-2 text-yellow-600 font-semibold">Pendiente</td>
+                  <td className="px-4 py-2 text-red-600 font-semibold">Pendiente ⛔</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">Puppet</td>
                   <td className="px-4 py-2">Gestión y replicación de configuración para nuevos nodos</td>
-                  <td className="px-4 py-2 text-yellow-600 font-semibold">Pendiente</td>
+                  <td className="px-4 py-2 text-red-600 font-semibold">Pendiente ⛔</td>
+                </tr>
+                <tr className="even:bg-purple-200">
+                  <td className="px-4 py-2 font-semibold">Intel oneAPI</td>
+                  <td className="px-4 py-2">Compiladores y herramientas para cómputo científico</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
+                </tr>
+                <tr className="even:bg-purple-200">
+                  <td className="px-4 py-2 font-semibold">GCC</td>
+                  <td className="px-4 py-2">Compilador GNU para C, C++, Fortran y otros</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
+                </tr>
+                <tr className="even:bg-purple-200">
+                  <td className="px-4 py-2 font-semibold">Python (Conda)</td>
+                  <td className="px-4 py-2">Entornos virtuales para desarrollo y scripts HPC</td>
+                  <td className="px-4 py-2 text-green-700 font-semibold">Instalado ✅</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">MATLAB</td>
                   <td className="px-4 py-2">Software técnico para simulación y análisis numérico</td>
-                  <td className="px-4 py-2 text-yellow-600 font-semibold">Pendiente</td>
+                  <td className="px-4 py-2 text-red-600 font-semibold">Pendiente ⛔</td>
                 </tr>
                 <tr className="even:bg-purple-200">
                   <td className="px-4 py-2 font-semibold">COMSOL</td>
                   <td className="px-4 py-2">Simulación multiphysics y análisis FEM</td>
-                  <td className="px-4 py-2 text-yellow-600 font-semibold">Pendiente</td>
+                  <td className="px-4 py-2 text-red-600 font-semibold">Pendiente ⛔</td>
                 </tr>
               </tbody>
             </table>
@@ -654,11 +665,65 @@ export default function SectionContent({ sectionId }: Props) {
 
           <p >Ejemplo de servicios y como acceder a estos</p>
           <ul className="space-y-6 list-inside list-none mt-10">
-            <li>🔐 Grafana (<code className="bg-gray-100 px-2 py-1 rounded">http://magma:3000)</code></li>
-            <li> 📊 Prometheus (<code className="bg-gray-100 px-2 py-1 rounded">http://magma:9090)</code></li>
-            <li> 🖥️ Cockpit (<code className="bg-gray-100 px-2 py-1 rounded">http://magma:9090)</code></li>
-            <li> 🔁 Acceso SSH al cluster (<code className="bg-gray-100 px-2 py-1 rounded">ssh coremaster@magma...</code>)</li>
+            <li> 🔁 Acceso SSH al cluster <code className="bg-gray-100 px-2 py-1 rounded">ssh username@magma.cluster.ub</code></li>
+            <li> 📊 Prometheus <code className="bg-gray-100 px-2 py-1 rounded"><a href="http://magma:9091/targets" className="hover:text-fuchsia-700">http://magma:9091/targets</a></code></li>
+            <li>🔐 Grafana <code className="bg-gray-100 px-2 py-1 rounded"><a href="http://magma:3000" className="hover:text-fuchsia-700">http://magma:3000</a></code></li>
+            <li> 🖥️ Cockpit <code className="bg-gray-100 px-2 py-1 rounded"><a href="http://magma:9090" className="hover:text-fuchsia-700">http://magma:9090</a></code></li>
           </ul>
+
+          <div className="mt-28">
+            <h2 className="text-2xl font-bold text-purple-700 mb-4">Montaje Automático del Workspace Local por Nodo</h2>
+            <p className="mb-4 text-gray-800">
+              En cada nodo de cómputo del clúster MAGMA se dispone de un espacio de almacenamiento local (~1 TB) ubicado en <code className="bg-gray-200 px-1 rounded">/mnt/workspace</code> o <code className="bg-gray-200 px-1 rounded">/mnt/scratch</code>. Utilizando <strong>autofs</strong>, este recurso se monta automáticamente cuando un usuario accede a <code className="bg-gray-200 px-1 rounded">/workspace/&lt;nodo&gt;</code>.
+            </p>
+
+            <h3 className="text-xl font-semibold text-purple-600 mb-2 mt-14">Configuración resumida</h3>
+            <ul className="list-disc list-inside mb-4 text-gray-700">
+              <li>Crear el directorio <code>/workspace</code> en cada nodo.</li>
+              <li>Editar <code>/etc/auto.workspace</code> con la ruta local al almacenamiento temporal.</li>
+              <li>Agregar entrada en <code>/etc/auto.master</code> apuntando a <code>/workspace</code>.</li>
+              <li>Reiniciar el servicio <code>autofs</code>.</li>
+            </ul>
+
+            <pre className="bg-purple-100 p-4 rounded text-sm font-mono overflow-x-auto mb-4 max-w-fit">
+              <p> # /etc/auto.workspace (ejemplo)          </p>
+              <p> maxwell  -fstype=auto :/mnt/scratc mt-14h</p>
+              <p> darcy    -fstype=auto :/mnt/workspace    </p>
+              <p> ampere   -fstype=auto :/mnt/workspace    </p>
+            </pre>
+
+            <h3 className="text-lg font-semibold text-purple-600 mt-14">Esquema del comportamiento</h3>
+            <div className="bg-white shadow rounded p-4 my-4 max-w-fit">
+              <pre className="text-sm text-gray-700 font-mono">
+                <p> +-------------------------+                                 </p>
+                <p> |  Nodo de Cómputo        |                                  </p>
+                <p> |  maxwell                |                                  </p>
+                <p> +-------------------------+                                 </p>
+                <p> |                                                           </p>
+                <p> v                                                           </p>
+                <p> /workspace/maxwell  ---`{'>'}`  monta /mnt/scratch (local)  </p>
+                <p> |                                                           </p>
+                <p> |---`{'>'}` desmonta tras 60 segundos inactivo              </p>
+              </pre>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
       );
@@ -715,6 +780,115 @@ export default function SectionContent({ sectionId }: Props) {
               className="w-full rounded shadow border"
             />
 
+          </div>
+
+        </div>
+      );
+    case 'scalability':
+      return (
+        <div>
+          <p className="mb-4">Actualmente, los nodos de computo posen la siguientememoria RAM</p>
+          <table className="max-w-6xl text-sm font-mono text-left border border-gray-300">
+            <thead className="bg-orange-600 text-white uppercase sticky top-0 z-10">
+              <tr className="text-center">
+                <th className="px-4 py-2">Nodo</th>
+                <th className="px-4 py-2">Procesador</th>
+                <th className="px-4 py-2">Modulo disponibles</th>
+                <th className="px-4 py-2">Modulo ocupados</th>
+                <th className="px-4 py-2">RAM Instalada por Modulo</th>
+                <th className="px-4 py-2">Memoria RAM Instalada</th>
+                <th className="px-4 py-2">Memoria Máxima</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-900">
+              <tr className="bg-orange-100 text-center">
+                <td className="px-4 py-2 font-semibold">magma</td>
+                <td className="px-4 py-2 whitespace-nowrap">Intel Core i7-2600 @ 3.40GHz</td>
+                <td className="px-4 py-2">2</td>
+                <td className="px-4 py-2">2</td>
+                <td className="px-4 py-2">2Gb + 4Gb</td>
+                <td className="px-4 py-2">6 GB</td>
+                <td className="px-4 py-2">8 GB</td>
+              </tr>
+              <tr className="bg-orange-200 text-center">
+                <td className="px-4 py-2 font-semibold">darcy</td>
+                <td className="px-4 py-2 whitespace-nowrap">Intel Xeon Gold 6240 @ 2.60GHz</td>
+                <td className="px-4 py-2">16</td>
+                <td className="px-4 py-2">12</td>
+                <td className="px-4 py-2">16 GB</td>
+                <td className="px-4 py-2">192 GB</td>
+                <td className="px-4 py-2">9216 GB</td>
+              </tr>
+              <tr className="bg-orange-200 text-center">
+                <td className="px-4 py-2 font-semibold">ampere</td>
+                <td className="px-4 py-2 whitespace-nowrap">Intel Xeon E5-2640 v3 @ 2.60GHz</td>
+                <td className="px-4 py-2">16</td>
+                <td className="px-4 py-2">6</td>
+                <td className="px-4 py-2">16 Gb</td>
+                <td className="px-4 py-2">96 Gb</td>
+                <td className="px-4 py-2">1024 Gb</td>
+              </tr>
+              <tr className="bg-orange-200 text-center">
+                <td className="px-4 py-2 font-semibold">maxwell</td>
+                <td className="px-4 py-2 whitespace-nowrap">Intel Xeon E5-2660 v3 @ 2.60GHz</td>
+                <td className="px-4 py-2">16</td>
+                <td className="px-4 py-2">6</td>
+                <td className="px-4 py-2">16 Gb</td>
+                <td className="px-4 py-2">96 GB</td>
+                <td className="px-4 py-2">1024 GB</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div className="mt-18">
+            <p className="mb-4 font-bold">Sobre el nodo Darcy</p>
+
+            <p>
+              Tu placa base Fujitsu D3488-A2, usada en la workstation CELSIUS R970, está pensada para cargas extremadamente altas
+              (simulación científica, IA, VMs, etc.). El procesador Xeon Gold 6240 oficialmente soporta hasta 1 TB de RAM por socket,
+              pero con módulos LDRDIMM o 3DS LRDIMM puedes alcanzar mayores cantidades gracias al soporte de la plataforma Intel® Scalable.
+            </p>
+            <Admonition type="tip" title="Consejo técnico">
+              ✅ Puedes llegar hasta 9 TB, usando módulos de gran capacidad (ej. 256 GB DIMMs)
+            </Admonition>
+
+          </div>
+          <h2 className="mt-18 mb-4 text-2xl font-semibold">Características detalladas de los nodos de computo</h2>
+          <div className="overflow-x-auto mb-10">
+            <table className="min-w-full border border-blue-300 rounded-lg text-sm text-left text-blue-900 bg-blue-50">
+              <thead className="bg-blue-700 text-white">
+                <tr>
+                  <th className="px-4 py-2 border border-blue-600">Característica</th>
+                  <th className="px-4 py-2 border border-blue-600">Ampere (R940)</th>
+                  <th className="px-4 py-2 border border-blue-600">Maxwell (R940)</th>
+                  <th className="px-4 py-2 border border-blue-600">Darcy (R970power)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["CPU", "2× Xeon E5-2640 v3 (8c/16t)", "2× Xeon E5-2660 v3 (10c/20t)", "2× Xeon Gold 6240 (18c/36t)"],
+                  ["Total hilos", "32", "40", "72"],
+                  ["Placa base", "D3358-A1", "D3358-A1", "D3488-A2"],
+                  ["RAM instalada", "96 GB", "96 GB", "192 GB"],
+                  ["Ranuras DIMM", "16", "16", "16"],
+                  ["Ranuras ocupadas", "6", "6", "12"],
+                  ["Máx. RAM soportada (BIOS)", "2×512 GB = 1 TB", "4×256 GB = 1 TB", "2×4608 GB = 9 TB"],
+                  ["RAM compatible", "DDR4 ECC REG", "DDR4 ECC REG", "RDIMM, LRDIMM, 3DS, Optane"],
+                  ["Velocidad RAM", "2133 MT/s (configurada a 1866)", "2133 MT/s", "2933 MT/s"],
+                  ["Año de la plataforma", "2014", "2014", "2019"],
+                ].map(([feature, ampere, maxwell, darcy], idx) => (
+                  <tr
+                    key={idx}
+                    className={idx % 2 === 0 ? "bg-blue-100" : "bg-blue-50"}
+                  >
+                    <td className="px-4 py-2 border border-blue-300 font-semibold">{feature}</td>
+                    <td className="px-4 py-2 border border-blue-300">{ampere}</td>
+                    <td className="px-4 py-2 border border-blue-300">{maxwell}</td>
+                    <td className="px-4 py-2 border border-blue-300">{darcy}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
 
         </div>
